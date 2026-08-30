@@ -1,0 +1,102 @@
+// Data Kandidat
+const candidates = [
+  {
+    id: 1,
+    name: "Kandidat 1 - Alex",
+    photo: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+    visi: "Mewujudkan kelas yang disiplin, kreatif, dan berprestasi.",
+    misi: "1. Mengadakan belajar bersama.<br>2. Menjaga kebersihan kelas.",
+    votes: 0
+  },
+  {
+    id: 2,
+    name: "Kandidat 2 - Siti",
+    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+    visi: "Menciptakan suasana kelas yang kompak dan menyenangkan.",
+    misi: "1. Mengadakan kegiatan kelas berkala.<br>2. Kas kelas yang transparan.",
+    votes: 0
+  },
+  {
+    id: 3,
+    name: "Kandidat 3 - Bima",
+    photo: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150&auto=format&fit=crop&q=80",
+    visi: "Menjadikan kelas sebagai tempat berkembang secara sportif.",
+    misi: "1. Evaluasi mingguan kelas.<br>2. Mengaktifkan kegiatan olahraga.",
+    votes: 0
+  }
+];
+
+// Menyimpan daftar nama yang sudah memilih
+const votedUsers = [];
+
+// Fungsi Menampilkan Daftar Kandidat
+function renderCandidates() {
+  const container = document.getElementById("candidateList");
+  let html = "";
+
+  candidates.forEach(candidate => {
+    html += `
+      <div class="card">
+        <img src="${candidate.photo}" alt="${candidate.name}">
+        <h3>${candidate.name}</h3>
+        <div class="visi-misi">
+          <p><strong>Visi:</strong> ${candidate.visi}</p><br>
+          <p><strong>Misi:</strong><br>${candidate.misi}</p>
+        </div>
+        <button class="btn-vote" onclick="vote(${candidate.id})">Vote ${candidate.name.split(' ')[2]}</button>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Fungsi Proses Voting
+function vote(candidateId) {
+  const voterInput = document.getElementById("voterName");
+  const voterName = voterInput.value.trim().toLowerCase();
+
+  if (!voterName) {
+    alert("Harap masukkan nama Anda terlebih dahulu sebelum memilih!");
+    return;
+  }
+
+  // Cek apakah nama sudah pernah memilih
+  if (votedUsers.includes(voterName)) {
+    alert(`Maaf, nama "${voterInput.value.trim()}" sudah melakukan voting sebelumnya!`);
+    return;
+  }
+
+  const selectedCandidate = candidates.find(c => c.id === candidateId);
+  if (selectedCandidate) {
+    selectedCandidate.votes += 1;
+    votedUsers.push(voterName);
+    alert(`Terima kasih ${voterInput.value.trim()}, suara Anda berhasil dikirim untuk ${selectedCandidate.name}!`);
+    
+    voterInput.value = "";
+    renderResults();
+  }
+}
+
+// Fungsi Menampilkan Hasil Perolehan Suara
+function renderResults() {
+  const resultsContainer = document.getElementById("resultsList");
+  let html = "";
+
+  candidates.forEach(candidate => {
+    html += `
+      <div class="result-item">
+        <span><strong>${candidate.name}</strong></span>
+        <span><strong>${candidate.votes} Suara</strong></span>
+      </div>
+    `;
+  });
+
+  resultsContainer.innerHTML = html;
+}
+
+// Jalankan penataan elemen setelah halaman web selesai dimuat sempurna
+document.addEventListener("DOMContentLoaded", function() {
+  renderCandidates();
+  renderResults();
+});
