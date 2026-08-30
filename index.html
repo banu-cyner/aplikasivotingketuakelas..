@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Voting Ketua Kelas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Pemilihan Ketua Kelas</h1>
+
+  <!-- Input Nama Pemilih -->
+  <div class="voter-box">
+    <label for="voterName"><strong>Masukkan Nama Anda sebelum memilih:</strong></label>
+    <input type="text" id="voterName" placeholder="Contoh: Budi Santoso">
+  </div>
+
+  <!-- Container Kartu Kandidat -->
+  <div class="candidates-container" id="candidateList"></div>
+
+  <!-- Container Hasil Suara -->
+  <div class="results-container">
+    <h2>Hasil Perolehan Suara</h2>
+    <div id="resultsList"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
